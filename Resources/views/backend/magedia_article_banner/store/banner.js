@@ -20,10 +20,10 @@ Ext.define('Shopware.apps.MagediaArticleBanner.store.Banner', {
     proxy : {
         type : 'ajax',
         api : {
-            read    : '{url controller="banner" action="getAllBanners"}',
-            update  : '{url controller="banner" action="updateBanner"}',
-            create  : '{url controller="banner" action="createBanner"}',
-            destroy : '{url controller="banner" action="deleteBanner" targetField=banners}'
+            read    : '{url controller="MagediaArticleBanner" action="getAllBanners"}',
+            update  : '{url controller="MagediaArticleBanner" action="updateBanner"}',
+            create  : '{url controller="MagediaArticleBanner" action="createBanner"}',
+            destroy : '{url controller="MagediaArticleBanner" action="deleteBanner" targetField=banners}'
         },
         // Data will be delivered as json and sits in the field data
         reader : {

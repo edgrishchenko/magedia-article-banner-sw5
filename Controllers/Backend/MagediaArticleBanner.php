@@ -267,13 +267,13 @@ class Shopware_Controllers_Backend_MagediaArticleBanner extends Shopware_Control
     /**
      * Transforms a ISO Date in to an easy processable dateTime Object.
      *
-     * @param string $date
-     * @param string $time
+     * @param string|null $date
+     * @param string|null $time
      *
      * @return DateTime|null
      * @throws Exception
      */
-    private function prepareDateAndTime(string $date, string $time): ?DateTime
+    private function prepareDateAndTime(?string $date, ?string $time): ?DateTime
     {
         // do not convert empty dates - this would cause the date to become the current date
         if (empty($date)) {

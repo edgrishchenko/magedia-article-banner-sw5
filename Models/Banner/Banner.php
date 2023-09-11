@@ -62,7 +62,7 @@ class Banner extends ModelEntity
      *
      * @var DateTimeInterface
      *
-     * @ORM\Column(name="valid_from", type="datetime", nullable=false)
+     * @ORM\Column(name="valid_from", type="datetime", nullable=true)
      */
     private $validFrom;
 
@@ -71,7 +71,7 @@ class Banner extends ModelEntity
      *
      * @var DateTimeInterface
      *
-     * @ORM\Column(name="valid_to", type="datetime", nullable=false)
+     * @ORM\Column(name="valid_to", type="datetime", nullable=true)
      */
     private $validTo;
 
