@@ -38,9 +38,7 @@ class ExtendArticleList implements SubscriberInterface
 
         $view->addTemplateDir($this->pluginDirectory . '/Resources/views');
 
-        if ($request->getActionName() == 'load') {
-            $view->extendsTemplate('backend/magedia_article_banner/app.js');
-            $view->extendsTemplate('backend/magedia_article_banner/view/main/grid.js');
-        }
+        $view->extendsTemplate('backend/magedia_article_banner/app.js');
+        $view->extendsTemplate('backend/magedia_article_banner/view/main/grid.js');
     }
 }
