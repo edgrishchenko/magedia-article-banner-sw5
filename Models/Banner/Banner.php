@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace MagediaArticleBanner\Models\ArticleBanner;
+namespace MagediaArticleBanner\Models\Banner;
 
 use DateTime;
 use DateTimeInterface;
@@ -35,7 +35,7 @@ use Shopware\Components\Model\ModelEntity;
  * @ORM\Entity(repositoryClass="Repository")
  * @ORM\HasLifecycleCallbacks()
  */
-class ArticleBanner extends ModelEntity
+class Banner extends ModelEntity
 {
     /**
      * Primary Key - autoincrement value
@@ -139,9 +139,9 @@ class ArticleBanner extends ModelEntity
      *
      * @param string $description
      *
-     * @return ArticleBanner
+     * @return Banner
      */
-    public function setDescription(string $description): ArticleBanner
+    public function setDescription(string $description): Banner
     {
         $this->description = $description;
 
@@ -165,10 +165,10 @@ class ArticleBanner extends ModelEntity
      *
      * @param DateTimeInterface|string $validFrom
      *
-     * @return ArticleBanner
+     * @return Banner
      * @throws Exception
      */
-    public function setValidFrom($validFrom): ArticleBanner
+    public function setValidFrom($validFrom): Banner
     {
         if (empty($validFrom)) {
             $validFrom = null;
@@ -198,10 +198,10 @@ class ArticleBanner extends ModelEntity
      *
      * @param DateTimeInterface|string $validTo
      *
-     * @return ArticleBanner
+     * @return Banner
      * @throws Exception
      */
-    public function setValidTo($validTo): ArticleBanner
+    public function setValidTo($validTo): Banner
     {
         if (empty($validTo)) {
             $validTo = null;
@@ -234,9 +234,9 @@ class ArticleBanner extends ModelEntity
      *
      * @param string $image
      *
-     * @return ArticleBanner
+     * @return Banner
      */
-    public function setImage(string $image): ArticleBanner
+    public function setImage(string $image): Banner
     {
         if (!empty($image)) {
             $fileInfo = pathinfo($image);
@@ -268,9 +268,9 @@ class ArticleBanner extends ModelEntity
      *
      * @param string $link
      *
-     * @return ArticleBanner
+     * @return Banner
      */
-    public function setLink(string $link): ArticleBanner
+    public function setLink(string $link): Banner
     {
         $this->link = $link;
 
@@ -296,9 +296,9 @@ class ArticleBanner extends ModelEntity
      *
      * @param string $linkTarget
      *
-     * @return ArticleBanner
+     * @return Banner
      */
-    public function setLinkTarget(string $linkTarget): ArticleBanner
+    public function setLinkTarget(string $linkTarget): Banner
     {
         $this->linkTarget = $linkTarget;
 
@@ -320,9 +320,9 @@ class ArticleBanner extends ModelEntity
      *
      * @param int $articleId
      *
-     * @return ArticleBanner
+     * @return Banner
      */
-    public function setArticleId(int $articleId): ArticleBanner
+    public function setArticleId(int $articleId): Banner
     {
         $this->articleId = $articleId;
 
@@ -347,9 +347,9 @@ class ArticleBanner extends ModelEntity
      *
      * @param string $extension
      *
-     * @return ArticleBanner
+     * @return Banner
      */
-    public function setExtension(string $extension): ArticleBanner
+    public function setExtension(string $extension): Banner
     {
         $this->extension = $extension;
 

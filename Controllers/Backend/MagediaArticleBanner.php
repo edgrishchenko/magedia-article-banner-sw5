@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
-use MagediaArticleBanner\Models\ArticleBanner\ArticleBanner;
-use MagediaArticleBanner\Models\ArticleBanner\Repository;
+use MagediaArticleBanner\Models\Banner\Banner;
+use MagediaArticleBanner\Models\Banner\Repository;
 
 /**
  * This controller is used to create, update, delete and get banner data from the database.
@@ -43,7 +43,7 @@ class Shopware_Controllers_Backend_MagediaArticleBanner extends Shopware_Control
         if (self::$testRepository !== null) {
             $this->repository = self::$testRepository;
         } else {
-            $this->repository = Shopware()->Models()->getRepository(ArticleBanner::class);
+            $this->repository = Shopware()->Models()->getRepository(Banner::class);
         }
         $this->namespace = Shopware()->Snippets()->getNamespace('backend/banner/banner');
     }
@@ -165,7 +165,7 @@ class Shopware_Controllers_Backend_MagediaArticleBanner extends Shopware_Control
 
                 return;
             }
-            $bannerModel = new ArticleBanner();
+            $bannerModel = new Banner();
         }
         // Read data
         $bannerModel->fromArray($params);
@@ -203,7 +203,7 @@ class Shopware_Controllers_Backend_MagediaArticleBanner extends Shopware_Control
         $bannerRequestData = empty($multipleBanner) ? [['id' => $this->Request()->id]] : $multipleBanner;
         try {
             foreach ($bannerRequestData as $banner) {
-                $model = Shopware()->Models()->find(ArticleBanner::class, $banner['id']);
+                $model = Shopware()->Models()->find(Banner::class, $banner['id']);
                 Shopware()->Models()->remove($model);
             }
             Shopware()->Models()->flush();

@@ -100,11 +100,6 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd', {
             validTypeErrorFunction : me.getExtensionErrorCallback()
         });
 
-        me.attributeForm = Ext.create('Shopware.attribute.Form', {
-            table: 'magedia_article_banners',
-            disabled: false
-        });
-
         // Actual form panel
         me.formPanel = Ext.create('Ext.form.Panel', {
             border      : false,
@@ -113,7 +108,7 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd', {
             flex: 1,
             autoScroll: true,
             defaults    : { anchor: '100%' },
-            items       : [ descField, linkField, me.linkTarget, validFrom, validUntil, dropZone, me.attributeForm ]
+            items       : [ descField, linkField, me.linkTarget, validFrom, validUntil, dropZone ]
         });
         me.formPanel.add(me.createHiddenFields());
 
