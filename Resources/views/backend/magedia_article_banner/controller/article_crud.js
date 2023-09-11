@@ -23,7 +23,18 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.ArticleCrud', {
     /**
      * @param record
      */
-    onAddBanner: function(record) {
-        console.log(record);
+    onAddBanner: function (record) {
+        var me = this,
+            bannerStore = me.subApplication.bannerStore,
+            articleId = record.data.id,
+            model = Ext.create('Shopware.apps.MagediaArticleBanner.model.BannerDetail'),
+            currentArticle = record.data
+
+        me.getView('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd').create({
+            bannerStore: bannerStore,
+            record: model,
+            articleId: articleId,
+            article: currentArticle
+        });
     },
 });

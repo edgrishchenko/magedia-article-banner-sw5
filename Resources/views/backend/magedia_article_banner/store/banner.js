@@ -6,13 +6,13 @@
  * This store will be loaded automatically and will just request 30 itemFs at once.
  * It will utilize the Banner Model @see Banner Model
  */
-//{block name="backend/magedia_article_banner/store/article_banner"}
-Ext.define('Shopware.apps.MagediaArticleBanner.store.ArticleBanner', {
+
+Ext.define('Shopware.apps.MagediaArticleBanner.store.Banner', {
     extend : 'Ext.data.Store',
-    id:'articleBannerStore',
+    id:'bannerStore',
     autoLoad : false,
     pageSize : 30,
-    model : 'Shopware.apps.Banner.model.BannerDetail',
+    model : 'Shopware.apps.MagediaArticleBanner.model.BannerDetail',
     /**
      * Defines the proxies where the data will later be loaded
      * @obj
@@ -32,4 +32,3 @@ Ext.define('Shopware.apps.MagediaArticleBanner.store.ArticleBanner', {
         }
     }
 });
-//{/block}

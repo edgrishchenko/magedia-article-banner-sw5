@@ -4,8 +4,8 @@
  * Backend - Management for Banner. Create | Modify | Delete.
  * Standard banner model
  */
-//{block name="backend/magedia_article_banner/model/article_banner"}
-Ext.define('Shopware.apps.MagediaArticleBanner.model.ArticleBannerDetail', {
+
+Ext.define('Shopware.apps.MagediaArticleBanner.model.BannerDetail', {
     /**
      * Extends the default extjs 4 model
      * @string
@@ -15,7 +15,7 @@ Ext.define('Shopware.apps.MagediaArticleBanner.model.ArticleBannerDetail', {
      * Set an alias to make the handling a bit easier
      * @string
      */
-    alias : 'model.articlebannermodel',
+    alias : 'model.bannermodel',
     /**
      * Defined items used by that model
      *
@@ -54,10 +54,10 @@ Ext.define('Shopware.apps.MagediaArticleBanner.model.ArticleBannerDetail', {
     proxy : {
         type : 'ajax',
         api : {
-            read    : '{url controller="banner" action="getAllBanners"}',
-            update  : '{url controller="banner" action="updateBanner"}',
-            create  : '{url controller="banner" action="createBanner"}',
-            destroy : '{url controller="banner" action="deleteBanner" targetField=banners}'
+            read    : '{url controller="articleBanner" action="getAllBanners"}',
+            update  : '{url controller="articleBanner" action="updateBanner"}',
+            create  : '{url controller="articleBanner" action="createBanner"}',
+            destroy : '{url controller="articleBanner" action="deleteBanner" targetField=banners}'
         },
         // Data will be delivered as json and sits in the field data
         reader : {
@@ -66,4 +66,3 @@ Ext.define('Shopware.apps.MagediaArticleBanner.model.ArticleBannerDetail', {
         }
     }
 });
-//{/block}

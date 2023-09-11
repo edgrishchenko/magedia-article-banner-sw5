@@ -1,15 +1,9 @@
-/*{namespace name=backend/magedia_article_banner/view/main}*/
 
-/**
- * Shopware UI - Banner View Main Add
- *
- * View component which features a form panel to add
- * a new banner.
- */
-//{block name="backend/magedia_article_banner/view/main/article_banner_form_add"}
-Ext.define('Shopware.apps.MagediaArticleBanner.view.main.ArticleBannerFormAdd', {
+
+
+Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd', {
     extend      : 'Enlight.app.Window',
-    alias       : 'widget.ArticleBannerFormAdd',
+    alias       : 'widget.BannerFormAdd',
     cls         : 'addWindow',
     autoShow    : true,
     border      : 0,
@@ -27,7 +21,7 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.ArticleBannerFormAdd', 
      */
     initComponent: function() {
         var me      = this;
-        me.title = Ext.String.format(this.title, this.article.get('text'));
+        me.title = Ext.String.format(this.title, this.article.Article_name);
         me.items    = me.createFormPanel();
         me.dockedItems = [{
             xtype: 'toolbar',
@@ -37,7 +31,7 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.ArticleBannerFormAdd', 
             items: me.createActionButtons()
         }];
         me.callParent(arguments);
-        me.record.set('articleId' , me.article.get('id'));
+        me.record.set('articleId' , me.article.Article_id);
 
         me.formPanel.loadRecord(me.record);
         me.linkTarget.setValue('_blank');
@@ -107,7 +101,7 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.ArticleBannerFormAdd', 
         });
 
         me.attributeForm = Ext.create('Shopware.attribute.Form', {
-            table: 's_emarketing_banners_attributes',
+            table: 'magedia_article_banners',
             disabled: false
         });
 
@@ -163,8 +157,8 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.ArticleBannerFormAdd', 
             name    : 'image'
         }, {
             xtype   : 'hidden',
-            name    : 'categoryId',
-            value   : me.categoryId
+            name    : 'articleId',
+            value   : me.articleId
         }];
     },
 
@@ -270,4 +264,3 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.ArticleBannerFormAdd', 
         }];
     }
 });
-//{/block}
