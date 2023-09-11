@@ -3,7 +3,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="magedia_article_banner.subscriber.templates" class="MagediaArticleBanner\Subscriber\ExtendArticle">
+        <service id="magedia_article_banner.subscriber.templates" class="MagediaArticleBanner\Subscriber\ExtendArticleList">
             <argument>%magedia_article_banner.plugin_dir%</argument>
             <tag name="shopware.event_subscriber"/>
         </service>

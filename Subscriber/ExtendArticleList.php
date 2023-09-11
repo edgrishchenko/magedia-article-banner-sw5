@@ -4,7 +4,7 @@ namespace MagediaArticleBanner\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 
-class ExtendArticle implements SubscriberInterface
+class ExtendArticleList implements SubscriberInterface
 {
     /**
      * @var string
@@ -24,20 +24,23 @@ class ExtendArticle implements SubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'Enlight_Controller_Action_PostDispatchSecure_Backend_Article' => 'onArticlePostDispatch'
+            'Enlight_Controller_Action_PostDispatchSecure_Backend_ArticleList' => 'onArticleListPostDispatch'
         ];
     }
 
-    public function onArticlePostDispatch(\Enlight_Event_EventArgs $args)
+    public function onArticleListPostDispatch(\Enlight_Event_EventArgs $args)
     {
         /** @var \Shopware_Controllers_Backend_Customer $controller */
         $controller = $args->getSubject();
 
         $view = $controller->View();
+        $request = $controller->Request();
 
         $view->addTemplateDir($this->pluginDirectory . '/Resources/views');
 
-        $view->extendsTemplate('backend/magedia_article_banner/app.js');
-        $view->extendsTemplate('backend/magedia_article_banner/view/detail/window.js');
+        if ($request->getActionName() == 'load') {
+            $view->extendsTemplate('backend/magedia_article_banner/app.js');
+            $view->extendsTemplate('backend/magedia_article_banner/view/main/grid.js');
+        }
     }
 }
