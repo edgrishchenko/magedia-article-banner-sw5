@@ -19,11 +19,11 @@ class Repository extends ModelRepository
      * Loads all banners. The $filter parameter can
      * be used to narrow the selection down to an article id.
      *
-     * @param int|null $filter
+     * @param string|null $filter
      *
      * @return Query
      */
-    public function getBanners(int $filter = null): Query
+    public function getBanners(?string $filter = null): Query
     {
         $builder = $this->getBannerMainQuery($filter);
 

@@ -13,7 +13,7 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.ArticleCrud', {
 
         me.control({
             'multi-edit-main-grid': {
-                addBanner: me.onAddBanner,
+                createBannerManager: me.onCreateBannerManager,
             }
         });
 
@@ -23,18 +23,16 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.ArticleCrud', {
     /**
      * @param record
      */
-    onAddBanner: function (record) {
-        var me = this,
-            bannerStore = me.subApplication.bannerStore,
-            articleId = record.data.id,
-            model = Ext.create('Shopware.apps.MagediaArticleBanner.model.BannerDetail'),
-            currentArticle = record.data
+    onCreateBannerManager: function (record) {
+        var me = this;
 
-        me.getView('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd').create({
-            bannerStore: bannerStore,
-            record: model,
-            articleId: articleId,
-            article: currentArticle
+        me.panel = this.subApplication.getView('Shopware.apps.MagediaArticleBanner.view.main.Panel').create({
+            bannerStore: me.subApplication.bannerStore
         });
+
+        // Create an show the applications main view.
+        me.main = this.subApplication.getView('Shopware.apps.MagediaArticleBanner.view.Main').create({
+            items: [ me.panel ]
+        }).show();
     },
 });

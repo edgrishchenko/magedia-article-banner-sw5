@@ -1,26 +1,24 @@
 
-
-Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd', {
-    extend      : 'Enlight.app.Window',
-    alias       : 'widget.BannerFormAdd',
-    cls         : 'addWindow',
-    autoShow    : true,
-    border      : 0,
-    title: '{s name=form_add/title}Create a new banner for article: [0]{/s}',
+Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerForm', {
+    extend : 'Enlight.app.Window',
+    alias: 'widget.banner-view-main-banner-form',
+    cls : 'addWindow',
+    autoShow : true,
+    border : 0,
     height : 510,
+    basePath: '',
     layout: {
         type: 'vbox',
         align: 'stretch'
     },
 
     /**
-     * Initializes the component by setting the form panel and the buttons
+     * Initializes the component
      *
      * @return void
      */
     initComponent: function() {
         var me      = this;
-        me.title = Ext.String.format(this.title, this.article.Article_name);
         me.items    = me.createFormPanel();
         me.dockedItems = [{
             xtype: 'toolbar',
@@ -29,11 +27,11 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd', {
             cls: 'shopware-toolbar',
             items: me.createActionButtons()
         }];
-        me.callParent(arguments);
-        me.record.set('articleId' , me.article.Article_id);
 
-        me.formPanel.loadRecord(me.record);
-        me.linkTarget.setValue('_blank');
+
+        me.callParent(arguments);
+        // Load record
+        me.formPanel.getForm().loadRecord(this.record);
     },
 
     /**
@@ -43,14 +41,14 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd', {
      */
     createFormPanel: function() {
         var me = this,
-            descField, linkField, validFrom, validUntil, dropZone;
+            descField, linkField, validFrom, validUntil;
 
         // Description field
         descField = Ext.create('Ext.form.field.Text', {
-            name        : 'description',
+            name        : 'description', //
             anchor      : '100%',
-            allowBlank  : false,
             labelWidth: 155,
+            allowBlank  : false,
             fieldLabel  : '{s name=form_add/description}Description{/s}',
             supportText : '{s name=form_add/description_support}Description of the banner e.g. Jackets-Winter-Special2013{/s}'
         });
@@ -61,7 +59,8 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd', {
             anchor      : '100%',
             labelWidth: 155,
             fieldLabel  : '{s name=form_add/link}Link{/s}',
-            supportText : '{s name=form_add/link_support}Link which will be called up if the banner has been clicked.{/s}'
+            supportText : '{s name=form_add/link_support}Link which will be called up if the banner has been clicked.{/s}',
+            emptyText   : 'http://'
         });
 
         var store = Ext.create('Ext.data.Store', {
@@ -74,29 +73,28 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd', {
 
         me.linkTarget = Ext.create('Ext.form.field.ComboBox', {
             name:'linkTarget',
+            labelWidth: 155,
             fieldLabel:'{s name=form_add/link_target/field}Link target{/s}',
             store: store,
             valueField:'value',
-            labelWidth: 155,
             displayField:'display',
             editable:false
         });
+
 
         // Get timing containers
         validFrom   = me.createValidFromContainer();
         validUntil  = me.createValidUntilContainer();
 
         // Media selection field
-        dropZone = Ext.create('Shopware.MediaManager.MediaSelection', {
+        var dropZone = Ext.create('Shopware.MediaManager.MediaSelection', {
             fieldLabel      : '{s name=form_add/banner}Banner{/s}',
             labelWidth: 155,
             name            : 'media-manager-selection',
             supportText     : '{s name=form_add/banner_support}Banner image selection via the Media Manager. The selection is limited to one media.{/s}',
+            helpText        : '{s name=form_add/banner_help}Banner image selection via the Media Manager. The selection is limited to one media.{/s}',
             multiSelect     : false,
-            anchor          : '100%',
-            allowBlank  : false,
-            validTypes      : me.getAllowedExtensions(),
-            validTypeErrorFunction : me.getExtensionErrorCallback()
+            anchor          : '100%'
         });
 
         // Actual form panel
@@ -106,54 +104,11 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd', {
             bodyPadding : 10,
             flex: 1,
             autoScroll: true,
-            defaults    : { anchor: '100%' },
+            defaults: { anchor: '100%' },
             items       : [ descField, linkField, me.linkTarget, validFrom, validUntil, dropZone ]
         });
-        me.formPanel.add(me.createHiddenFields());
 
         return me.formPanel;
-    },
-    /**
-     * Returns the method which should be called if some select a file with a wrong extension.
-     *
-     * @return string
-     */
-    getExtensionErrorCallback :  function() {
-        return 'onExtensionError';
-    },
-
-    onExtensionError : function() {
-        Shopware.Msg.createGrowlMessage('','{s name=extension_error}Incorrect MIME Type{/s}','{s name=main_title}{/s}');
-    },
-
-    /**
-     * Method to set the allowed file extension for the media manager
-     * @return []
-     */
-    getAllowedExtensions : function() {
-        return [ 'gif', 'png', 'jpeg', 'jpg', 'svg' ]
-    },
-
-    /**
-     * Creates the neccessary hidden fields which transports
-     * all needed informations
-     *
-     * @return [array] generated hidden form elements
-     */
-    createHiddenFields: function() {
-        var me = this;
-
-        return [{
-            xtype   : 'hidden',
-            name    : 'id'
-        }, {
-            xtype   : 'hidden',
-            name    : 'image'
-        }, {
-            xtype   : 'hidden',
-            name    : 'articleId',
-            value   : me.articleId
-        }];
     },
 
     /**
@@ -211,9 +166,9 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd', {
             submitFormat: 'd.m.Y',
             fieldLabel  : '{s name=form_add/to_date_label}Active till{/s}',
             name        : 'validToDate',
-            labelWidth: 155,
             supportText : '{s name=form_add/to_date_support}Format jjjj.mm.tt{/s}',
             columnWidth : .60,
+            labelWidth: 155,
             allowBlank  : true,
             listeners: {
                 change: function(field, newValue) {
@@ -248,13 +203,13 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd', {
 
         return ['->', {
             text    : '{s name=form_add/cancel}Cancel{/s}',
-            cls: 'secondary',
-            scope       : me,
-            handler     : me.destroy
+            scope   : me,
+            handler : me.destroy
         }, {
             text    : '{s name=form_add/save}Save{/s}',
-            action  : 'addBannerSave',
+            action  : 'saveBannerEdit',
             cls: 'primary'
         }];
     }
 });
+//{/block}

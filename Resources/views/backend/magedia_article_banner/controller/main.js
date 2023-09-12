@@ -14,6 +14,21 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
         me.subApplication.bannerStore = me.subApplication.getStore('Shopware.apps.MagediaArticleBanner.store.Banner');
 
         me.control({
+            'banner-view-main-panel panel dataview':{
+                /*{if {acl_is_allowed privilege=update}}*/
+                itemdblclick: me.onBannerClick,
+                /* {/if} */
+                selectionchange: me.onBannerSelection
+            },
+            'banner-view-main-panel button[action=addBanner]':{
+                click: me.onAddBanner
+            },
+            'banner-view-main-panel button[action=editBanner]':{
+                click: me.onEditClick
+            },
+            'banner-view-main-panel button[action=deleteBanner]':{
+                click: me.onDeleteBanner
+            },
             //The save-button from the edit-window
             'window button[action=saveBannerEdit]': {
                 click: me.onSaveEditBanner
@@ -26,6 +41,24 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
 
         // me.callParent will execute the init function of the overridden controller
         me.callParent(arguments);
+    },
+
+    /**
+     * @param record
+     */
+    onAddBanner : function(record) {
+        var me = this,
+            bannerStore = me.subApplication.bannerStore,
+            articleId = record.data.id,
+            model = Ext.create('Shopware.apps.MagediaArticleBanner.model.BannerDetail'),
+            currentArticle = record.data
+
+        me.getView('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd').create({
+            bannerStore: bannerStore,
+            record: model,
+            articleId: articleId,
+            article: currentArticle
+        });
     },
 
     /**

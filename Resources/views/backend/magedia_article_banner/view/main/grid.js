@@ -6,7 +6,7 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.Grid', {
     initComponent: function () {
         var me = this;
 
-        me.addEvents('addBanner');
+        me.addEvents('createBannerManager');
 
         me.callParent(arguments);
     },
@@ -21,7 +21,7 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.Grid', {
             cls: 'editBtn',
             iconCls: 'sprite-image--plus',
             handler: function (view, rowIndex, colIndex, item, opts, record) {
-                me.fireEvent('addBanner', record);
+                me.fireEvent('createBannerManager', record);
             }
         });
 
