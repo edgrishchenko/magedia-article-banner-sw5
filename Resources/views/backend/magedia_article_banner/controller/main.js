@@ -8,8 +8,19 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
      */
     override: 'Shopware.apps.ArticleList.controller.Main',
 
+    /**
+     * keeps the message that will be shown if some banners should be deleted
+     * @private
+     * @string
+     */
+    deleteDialogMessage: '{s name=delete_dialog_message}There have been [0] banners selected for deletion. Are you sure you want to delete those banners?{/s}',
+
     init: function () {
         var me = this;
+
+        me.addRef({ ref:'editBannerButton', selector:'banner-view-main-panel button[action=editBanner]' });
+        me.addRef({ ref:'deleteBannerButton', selector:'banner-view-main-panel button[action=deleteBanner]' });
+        me.addRef({ ref:'mainPanel', selector:'bannermanager banner-view-main-panel' });
 
         me.subApplication.bannerStore = me.subApplication.getStore('Shopware.apps.MagediaArticleBanner.store.Banner');
 
@@ -20,11 +31,9 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
                 /* {/if} */
                 selectionchange: me.onBannerSelection
             },
-            'banner-view-main-panel button[action=addBanner]':{
-                click: me.onAddBanner
-            },
-            'banner-view-main-panel button[action=editBanner]':{
-                click: me.onEditClick
+            'banner-view-main-panel':{
+                addBanner: me.onAddBanner,
+                editBanner: me.onEditBanner
             },
             'banner-view-main-panel button[action=deleteBanner]':{
                 click: me.onDeleteBanner
@@ -49,7 +58,7 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
     onAddBanner : function(record) {
         var me = this,
             bannerStore = me.subApplication.bannerStore,
-            articleId = record.data.id,
+            articleId = record.get('Article_id'),
             model = Ext.create('Shopware.apps.MagediaArticleBanner.model.BannerDetail'),
             currentArticle = record.data
 
@@ -59,6 +68,62 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
             articleId: articleId,
             article: currentArticle
         });
+    },
+
+    /**
+     * Edit method called through the edit button
+     *
+     * @event click
+     */
+    onEditBanner : function(record) {
+        var me = this,
+            bannerStore = me.subApplication.bannerStore,
+            dataView        = me.getMainPanel().dataView,
+            selection       = dataView.getSelectionModel().getLastSelected(),
+            articleId      = selection.get('articleId')
+
+        me.getView('Shopware.apps.MagediaArticleBanner.view.main.BannerForm').create({
+            bannerStore : bannerStore,
+            record      : selection,
+            scope       : me,
+            articleId  : articleId,
+            title       : record.get('Article_name')
+        });
+    },
+
+    /**
+     * Event listener method which will be fired when the user clicks
+     * on the "delete marked banner(s)"-button.
+     *
+     * Deletes one or multiple banners using a bulk data operation.
+     *
+     * @event click
+     * @return void
+     */
+    onDeleteBanner : function() {
+        var me              = this,
+            dataView        = me.getMainPanel().dataView,
+            selection       = dataView.getSelectionModel().getSelection(),
+            store           = me.subApplication.bannerStore,
+            noOfElements    = selection.length;
+
+        Ext.MessageBox.confirm('{s name=delete_dialog_title}Delete selected banners.{/s}',
+            Ext.String.format(this.deleteDialogMessage, noOfElements),
+            function (response) {
+                if ('yes' !== response) {
+                    return false;
+                }
+                if (selection.length > 0) {
+                    store.remove(selection);
+                    try {
+                        Shopware.Msg.createGrowlMessage('', '{s name=delete_success}Banner has been deleted.{/s}', '{s name=main_title}{/s}');
+                        store.save();
+                        store.load();
+                    } catch (e) {
+                        Shopware.Msg.createGrowlMessage('', '{s name=delete_error}Not every banner could be deleted:{/s} ' + e.message, '{s name=main_title}{/s}');
+                    }
+                }
+            });
     },
 
     /**
@@ -96,4 +161,29 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
             });
         }
     },
+
+    /**
+     * Event listener method which will be fired when the user
+     * selects one or more banner.
+     *
+     * Locks/Unlocks the "delete marked banner(s)"-button
+     *
+     * @event selectionchange
+     * @param [object] view - Ext.view.View
+     * @param [array] selection - Array of Ext.data.Model's from the selected banners
+     * @return void
+     */
+    onBannerSelection: function(view, selection) {
+        var me          = this,
+            deleteBtn   = me.getDeleteBannerButton(),
+            editButton = me.getEditBannerButton();
+        /*{if {acl_is_allowed privilege=delete}}*/
+        deleteBtn.setDisabled((selection.length > 0) ? false : true);
+        /* {/if} */
+        /*{if {acl_is_allowed privilege=update}}*/
+        // rule on when the edit button should be enabled.
+        editButton.setDisabled((selection.length == 1) ? false : true);
+        /* {/if} */
+
+    }
 });

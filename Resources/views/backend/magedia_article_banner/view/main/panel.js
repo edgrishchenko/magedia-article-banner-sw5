@@ -18,6 +18,8 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.Panel', {
         me.toolbar = me.getBannerToolbar();
         me.items = [ me.bannerList, me.toolbar ];
 
+        me.addEvents('addBanner', 'editBanner');
+
         me.callParent(arguments);
     },
     /**
@@ -26,6 +28,8 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.Panel', {
      * @return Ext.toolbar.Toolbar
      */
     getBannerToolbar : function() {
+        var me = this;
+
         return Ext.create('Ext.toolbar.Toolbar', {
             region: 'north',
             ui: 'shopware-ui',
@@ -35,6 +39,9 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.Panel', {
                     iconCls : 'sprite-plus-circle',
                     text : '{s name=view/main_add}Add{/s}',
                     action : 'addBanner',
+                    handler: function() {
+                        me.fireEvent('addBanner', me.record);
+                    }
                 },
                 /* {/if} */
                 /*{if {acl_is_allowed privilege=delete}}*/
@@ -50,7 +57,10 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.Panel', {
                     iconCls : 'sprite-pencil',
                     text : '{s name=view/main_edit}Edit{/s}',
                     disabled : true,
-                    action : 'editBanner'
+                    action : 'editBanner',
+                    handler: function() {
+                        me.fireEvent('editBanner', me.record);
+                    }
                 }
                 /*{/if}*/
             ]

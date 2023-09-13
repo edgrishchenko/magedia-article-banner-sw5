@@ -14,7 +14,7 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.ArticleCrud', {
         me.control({
             'multi-edit-main-grid': {
                 createBannerManager: me.onCreateBannerManager,
-            }
+            },
         });
 
         me.callParent(arguments);
@@ -27,7 +27,8 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.ArticleCrud', {
         var me = this;
 
         me.panel = this.subApplication.getView('Shopware.apps.MagediaArticleBanner.view.main.Panel').create({
-            bannerStore: me.subApplication.bannerStore
+            bannerStore: me.subApplication.bannerStore,
+            record: record
         });
 
         // Create an show the applications main view.

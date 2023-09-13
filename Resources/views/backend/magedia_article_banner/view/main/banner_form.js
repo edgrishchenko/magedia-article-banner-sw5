@@ -1,4 +1,5 @@
 
+
 Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerForm', {
     extend : 'Enlight.app.Window',
     alias: 'widget.banner-view-main-banner-form',
@@ -212,4 +213,3 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerForm', {
         }];
     }
 });
-//{/block}
