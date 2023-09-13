@@ -56,7 +56,7 @@ class Shopware_Controllers_Backend_MagediaArticleBanner extends Shopware_Control
     public function getAllBanners()
     {
         $params = $this->Request()->getParams();
-        $filter = (empty($params['articleId'])) ? '' : $params['articleId'];
+        $filter = (empty($params['articleId'])) ? null : (int) $params['articleId'];
 
         $query = $this->repository->getBanners($filter);
         $banners = $query->getArrayResult();

@@ -19,11 +19,11 @@ class Repository extends ModelRepository
      * Loads all banners. The $filter parameter can
      * be used to narrow the selection down to an article id.
      *
-     * @param string|null $filter
+     * @param int|null $filter
      *
      * @return Query
      */
-    public function getBanners(?string $filter = null): Query
+    public function getBanners(?int $filter = null): Query
     {
         $builder = $this->getBannerMainQuery($filter);
 
@@ -35,11 +35,11 @@ class Repository extends ModelRepository
      * valid including liveshopping banners.
      * The amount of returned banners can be with the $limit parameter.
      *
-     * @param string|null $filter    Article ID
+     * @param int|null $filter    Article ID
      * @param int $limit     Limit
      * @param bool $randomize
      */
-    public function getAllActiveBanners(?string $filter = null, int $limit = 0, bool $randomize = false)
+    public function getAllActiveBanners(?int $filter = null, int $limit = 0, bool $randomize = false)
     {
         $builder = $this->getBannerMainQuery($filter);
         $today = new DateTime();
@@ -68,11 +68,11 @@ class Repository extends ModelRepository
      * be used to narrow the selection down to an article id.
      * If the second parameter is set to false only banners which are active will be returned.
      *
-     * @param string|null $filter
+     * @param int|null $filter
      *
      * @return QueryBuilder
      */
-    public function getBannerMainQuery(?string $filter = null): QueryBuilder
+    public function getBannerMainQuery(?int $filter = null): QueryBuilder
     {
         $builder = $this->createQueryBuilder('banner');
         if ($filter !== null || !empty($filter)) {

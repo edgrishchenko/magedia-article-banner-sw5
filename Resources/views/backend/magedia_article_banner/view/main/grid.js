@@ -13,13 +13,19 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.Grid', {
 
     getActionColumn: function () {
         var me = this,
+            bannerStore = me.subApp.bannerStore;
             parent = me.callParent(arguments);
 
 
         parent.width = parent.width + 30;
         parent.items.push({
-            cls: 'editBtn',
-            iconCls: 'sprite-image--plus',
+            getClass: function(value, metadata, record) {
+                if (bannerStore.findRecord('articleId', record.get('Article_id'))) {
+                    return 'sprite-image--pencil'
+                }
+
+                return 'sprite-image--plus';
+            },
             handler: function (view, rowIndex, colIndex, item, opts, record) {
                 me.fireEvent('createBannerManager', record);
             }
