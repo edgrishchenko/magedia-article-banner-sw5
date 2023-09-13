@@ -24,10 +24,19 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.ArticleCrud', {
      * @param record
      */
     onCreateBannerManager: function (record) {
-        var me = this;
+        var me = this,
+            bannerStore = me.subApplication.bannerStore,
+            articleId  = record.get('Article_id');
+
+        // remove the old filter and set a new one
+        bannerStore.clearFilter(true);
+        bannerStore.filter("articleId", articleId);
+        bannerStore.load({
+            params: { articleId: articleId }
+        });
 
         me.panel = this.subApplication.getView('Shopware.apps.MagediaArticleBanner.view.main.Panel').create({
-            bannerStore: me.subApplication.bannerStore,
+            bannerStore: bannerStore,
             record: record
         });
 
