@@ -95,7 +95,8 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.Panel', {
             prepareData : function(data) {
                 Ext.apply(data, {
                     description : Ext.util.Format.ellipsis(data.description, 27),
-                    img         : data.image,
+                    desktop_img         : data.desktopImage,
+                    mobile_img         : data.mobileImage,
                     id           : data.id
                 });
                 return data;
@@ -120,8 +121,11 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.Panel', {
         var basePath = '';
         return [
             '<tpl for=".">',
-            '<div class="thumb-wrap" id="{literal}{id}{/literal}">',
-            '<div class="thumb"><img src="{literal}{image}{/literal}" title="{literal}{description}{/literal}"></div>',
+            '<div class="thumb-wrap" id="{literal}{id}{/literal}" style="width: 440px">',
+            '<div class="thumb" style="width: 430px; height: 150px; margin: 0 3px 4px;">',
+            '<img src="{literal}{desktopImage}{/literal}" title="{literal}{description}{/literal}" style="width: 205px; height: 140px; float: left">',
+            '<img src="{literal}{mobileImage}{/literal}" title="{literal}{description}{/literal}" style="width: 205px; height: 140px; float: right">',
+            '</div>',
             '<span class="x-editable">{literal}{description}{/literal}</span>',
             '</div>',
             '</tpl>',

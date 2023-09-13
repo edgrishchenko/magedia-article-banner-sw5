@@ -85,12 +85,12 @@ class Repository extends ModelRepository
     }
 
     /**
-     * @param int $articleId
+     * @param string $articleId
      * @param int $limit
      *
      * @return array
      */
-    public function getBannerIds(int $articleId, int $limit = 0): array
+    public function getBannerIds(string $articleId, int $limit = 0): array
     {
         $builder = $this->createQueryBuilder('banner');
         $today = new DateTime();

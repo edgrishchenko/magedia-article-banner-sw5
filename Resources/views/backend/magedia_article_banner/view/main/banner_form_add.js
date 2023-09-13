@@ -43,7 +43,7 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd', {
      */
     createFormPanel: function() {
         var me = this,
-            descField, linkField, validFrom, validUntil, dropZone;
+            descField, linkField, validFrom, validUntil, desktopDropZone, mobileDropZone;
 
         // Description field
         descField = Ext.create('Ext.form.field.Text', {
@@ -86,12 +86,25 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd', {
         validFrom   = me.createValidFromContainer();
         validUntil  = me.createValidUntilContainer();
 
-        // Media selection field
-        dropZone = Ext.create('Shopware.MediaManager.MediaSelection', {
-            fieldLabel      : '{s name=form_add/banner}Banner{/s}',
+        // Desktop Media selection field
+        desktopDropZone = Ext.create('Shopware.MediaManager.MediaSelection', {
+            fieldLabel      : '{s name=form_add/desktop_banner}Desktop Banner{/s}',
             labelWidth: 155,
-            name            : 'media-manager-selection',
-            supportText     : '{s name=form_add/banner_support}Banner image selection via the Media Manager. The selection is limited to one media.{/s}',
+            name            : 'desktop-media-manager-selection',
+            supportText     : '{s name=form_add/desktop_banner_support}Desktop Banner image selection via the Media Manager. The selection is limited to one media.{/s}',
+            multiSelect     : false,
+            anchor          : '100%',
+            allowBlank  : false,
+            validTypes      : me.getAllowedExtensions(),
+            validTypeErrorFunction : me.getExtensionErrorCallback()
+        });
+
+        // Mobile Media selection field
+        mobileDropZone = Ext.create('Shopware.MediaManager.MediaSelection', {
+            fieldLabel      : '{s name=form_add/mobile_banner}Mobile Banner{/s}',
+            labelWidth: 155,
+            name            : 'mobile-media-manager-selection',
+            supportText     : '{s name=form_add/mobile_banner_support}Mobile Banner image selection via the Media Manager. The selection is limited to one media.{/s}',
             multiSelect     : false,
             anchor          : '100%',
             allowBlank  : false,
@@ -107,7 +120,7 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd', {
             flex: 1,
             autoScroll: true,
             defaults    : { anchor: '100%' },
-            items       : [ descField, linkField, me.linkTarget, validFrom, validUntil, dropZone ]
+            items       : [ descField, linkField, me.linkTarget, validFrom, validUntil, desktopDropZone, mobileDropZone ]
         });
         me.formPanel.add(me.createHiddenFields());
 
@@ -148,7 +161,10 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd', {
             name    : 'id'
         }, {
             xtype   : 'hidden',
-            name    : 'image'
+            name    : 'desktopImage'
+        }, {
+            xtype   : 'hidden',
+            name    : 'mobileImage'
         }, {
             xtype   : 'hidden',
             name    : 'articleId',

@@ -76,13 +76,22 @@ class Banner extends ModelEntity
     private $validTo;
 
     /**
-     * Relative path to the real banner image.
+     * Relative path to the real banner desktop image.
      *
      * @var string
      *
-     * @ORM\Column(name="img", type="string", length=100, nullable=false)
+     * @ORM\Column(name="desktop_img", type="string", length=100, nullable=false)
      */
-    private $image;
+    private $desktopImage;
+
+    /**
+     * Relative path to the real banner mobile image.
+     *
+     * @var string
+     *
+     * @ORM\Column(name="mobile_img", type="string", length=100, nullable=false)
+     */
+    private $mobileImage;
 
     /**
      * An optional link which will be fired when the banner is been clicked.
@@ -113,13 +122,22 @@ class Banner extends ModelEntity
     private $articleId;
 
     /**
-     * The extension of the banner image file will be stored here
+     * The extension of the banner desktop image file will be stored here
      *
      * @var string
      *
-     * @ORM\Column(name="extension", type="string", length=25, nullable=false)
+     * @ORM\Column(name="desktop_extension", type="string", length=25, nullable=false)
      */
-    private $extension;
+    private $desktopExtension;
+
+    /**
+     * The extension of the banner mobile image file will be stored here
+     *
+     * @var string
+     *
+     * @ORM\Column(name="mobile_extension", type="string", length=25, nullable=false)
+     */
+    private $mobileExtension;
 
     /**
      * Returns the numeric id.
@@ -226,38 +244,73 @@ class Banner extends ModelEntity
     }
 
     /**
-     * Sets the path and file name of the banner image.
+     * Sets the path and file name of the desktop banner image.
      * The file extension will be set also.
      *
      * Max chars: 100 char
      * This field must be filled
      *
-     * @param string $image
+     * @param string $desktopImage
      *
      * @return Banner
      */
-    public function setImage(string $image): Banner
+    public function setDesktopImage(string $desktopImage): Banner
     {
-        if (!empty($image)) {
-            $fileInfo = pathinfo($image);
-            $this->extension = $fileInfo['extension'];
-            $this->image = $image;
+        if (!empty($desktopImage)) {
+            $fileInfo = pathinfo($desktopImage);
+            $this->desktopExtension = $fileInfo['extension'];
+            $this->desktopImage = $desktopImage;
         } else {
-            $this->extension = '';
-            $this->image = $image;
+            $this->desktopExtension = '';
+            $this->desktopImage = $desktopImage;
         }
 
         return $this;
     }
 
     /**
-     * Returns the relative path and file name to the banner image file
+     * Returns the relative path and file name to the desktop banner image file
      *
      * @return string
      */
-    public function getImage(): string
+    public function getDesktopImage(): string
     {
-        return $this->image;
+        return $this->desktopImage;
+    }
+
+    /**
+     * Sets the path and file name of the desktop banner image.
+     * The file extension will be set also.
+     *
+     * Max chars: 100 char
+     * This field must be filled
+     *
+     * @param string $mobileImage
+     *
+     * @return Banner
+     */
+    public function setMobileImage(string $mobileImage): Banner
+    {
+        if (!empty($mobileImage)) {
+            $fileInfo = pathinfo($mobileImage);
+            $this->mobileExtension = $fileInfo['extension'];
+            $this->mobileImage = $mobileImage;
+        } else {
+            $this->mobileExtension = '';
+            $this->mobileImage = $mobileImage;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Returns the relative path and file name to the mobile banner image file
+     *
+     * @return string
+     */
+    public function getMobileImage(): string
+    {
+        return $this->mobileImage;
     }
 
     /**
@@ -340,30 +393,56 @@ class Banner extends ModelEntity
     }
 
     /**
-     * Sets the extension of the banner image file
+     * Sets the extension of the desktop banner image file
      *
      * Max chars: 25
      * This Field is optional
      *
-     * @param string $extension
+     * @param string $desktopExtension
      *
      * @return Banner
      */
-    public function setExtension(string $extension): Banner
+    public function setDesktopExtension(string $desktopExtension): Banner
     {
-        $this->extension = $extension;
+        $this->desktopExtension = $desktopExtension;
 
         return $this;
     }
 
     /**
-     * Returns the extension of the banner image.
+     * Returns the extension of the desktop banner image.
      *
      * @return string
      */
-    public function getExtension(): string
+    public function getDesktopExtension(): string
     {
-        return $this->extension;
+        return $this->desktopExtension;
     }
 
+    /**
+     * Sets the extension of the mobile banner image file
+     *
+     * Max chars: 25
+     * This Field is optional
+     *
+     * @param string $mobileExtension
+     *
+     * @return Banner
+     */
+    public function setMobileExtension(string $mobileExtension): Banner
+    {
+        $this->mobileExtension = $mobileExtension;
+
+        return $this;
+    }
+
+    /**
+     * Returns the extension of the mobile banner image.
+     *
+     * @return string
+     */
+    public function getMobileExtension(): string
+    {
+        return $this->mobileExtension;
+    }
 }

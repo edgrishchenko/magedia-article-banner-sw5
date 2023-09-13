@@ -34,11 +34,14 @@ Ext.define('Shopware.apps.MagediaArticleBanner.model.BannerDetail', {
         { name : 'validToDate',   type: 'date', dateFormat: 'd.m.Y' },
         { name : 'validToTime',   type: 'date', dateFormat: 'H:i' },
         { name : 'link',            type: 'string' },
-        { name : 'image',             type: 'string' },
-        { name : 'media-manager-selection', type: 'string' },
+        { name : 'desktopImage',             type: 'string' },
+        { name : 'desktop-media-manager-selection', type: 'string' },
+        { name : 'mobileImage',             type: 'string' },
+        { name : 'mobile-media-manager-selection', type: 'string' },
         { name : 'linkTarget',     type: 'string' },
         { name : 'articleId',      type: 'int' },
-        { name : 'extension',       type: 'string' }
+        { name : 'desktopExtension',       type: 'string' },
+        { name : 'mobileExtension',       type: 'string' }
     ],
 
     /**

@@ -107,7 +107,8 @@ class Shopware_Controllers_Backend_MagediaArticleBanner extends Shopware_Control
         }
 
         // Check if there are more than one media is submitted
-        if (strpos($this->Request()->get('media-manager-selection'), ',') !== false) {
+        if (strpos($this->Request()->get('desktop-media-manager-selection'), ',') !== false ||
+            strpos($this->Request()->get('mobile-media-manager-selection'), ',') !== false ) {
             $this->View()->assign([
                 'success' => false,
                 'errorMsg' => $this
@@ -150,7 +151,8 @@ class Shopware_Controllers_Backend_MagediaArticleBanner extends Shopware_Control
         // Build a single till date instead of two dates
         $params['validTo'] = $this->prepareDateAndTime($this->Request()->get('validToDate'), $this->Request()->get('validToTime'));
         // Get media manager
-        $mediaManagerData = $this->Request()->get('media-manager-selection');
+        $desktopMediaManagerData = $this->Request()->get('desktop-media-manager-selection');
+        $mobileMediaManagerData = $this->Request()->get('mobile-media-manager-selection');
 
         // Update database entries
         if (!$createMode) {
@@ -158,7 +160,7 @@ class Shopware_Controllers_Backend_MagediaArticleBanner extends Shopware_Control
             $bannerModel = $this->repository->find($id);
         } else {
             // Check if there are none files submitted
-            if (empty($mediaManagerData)) {
+            if (empty($desktopMediaManagerData) || empty($mobileMediaManagerData)) {
                 $this->View()->assign([
                     'success' => false,
                     'errorMsg' => $this->namespace->get('no_banner_selected', 'No banner has been selected.'), ]);
@@ -171,13 +173,18 @@ class Shopware_Controllers_Backend_MagediaArticleBanner extends Shopware_Control
         $bannerModel->fromArray($params);
 
         // Set new image and extension if necessary
-        if (!empty($mediaManagerData)) {
-            $bannerModel->setImage($mediaManagerData);
+        if (!empty($desktopMediaManagerData)) {
+            $bannerModel->setDesktopImage($desktopMediaManagerData);
+        }
+
+        if (!empty($mobileMediaManagerData)) {
+            $bannerModel->setMobileImage($mobileMediaManagerData);
         }
 
         // Strip full qualified url
         $mediaService = $this->get('shopware_media.media_service');
-        $bannerModel->setImage($mediaService->normalize($bannerModel->getImage()));
+        $bannerModel->setDesktopImage($mediaService->normalize($bannerModel->getDesktopImage()));
+        $bannerModel->setMobileImage($mediaService->normalize($bannerModel->getMobileImage()));
 
         // Write model to db
         try {
@@ -256,7 +263,8 @@ class Shopware_Controllers_Backend_MagediaArticleBanner extends Shopware_Control
                 $banner['validToTime'] = $banner['validTo']->format('H:i');
             }
 
-            $banner['image'] = $mediaService->getUrl($banner['image']);
+            $banner['desktopImage'] = $mediaService->getUrl($banner['desktopImage']);
+            $banner['mobileImage'] = $mediaService->getUrl($banner['mobileImage']);
 
             $nodes[$cnt++] = $banner;
         }
