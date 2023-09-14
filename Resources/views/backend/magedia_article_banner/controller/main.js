@@ -119,6 +119,14 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
                         Shopware.Msg.createGrowlMessage('', '{s name=delete_success}Banner has been deleted.{/s}', '{s name=main_title}{/s}');
                         store.save();
                         store.load();
+
+                        var articleId = selection[0].get('articleId');
+                        var bannerManagerButton = Ext.select('.article-banner-' + articleId);
+
+                        if (store.getCount() === 0) {
+                            bannerManagerButton.removeCls('sprite-image--pencil');
+                            bannerManagerButton.addCls('sprite-image--plus');
+                        }
                     } catch (e) {
                         Shopware.Msg.createGrowlMessage('', '{s name=delete_error}Not every banner could be deleted:{/s} ' + e.message, '{s name=main_title}{/s}');
                     }
@@ -157,6 +165,14 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
                     store.load({
                         params: { articleId : record.get('articleId') }
                     });
+
+                    var articleId = record.get('articleId');
+                    var bannerManagerButton = Ext.select('.article-banner-' + articleId);
+
+                    if (store.getCount() === 0) {
+                        bannerManagerButton.removeCls('sprite-image--plus');
+                        bannerManagerButton.addCls('sprite-image--pencil');
+                    }
                 }
             });
         }

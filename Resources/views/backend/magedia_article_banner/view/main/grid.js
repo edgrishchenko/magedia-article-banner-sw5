@@ -20,11 +20,12 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.Grid', {
         parent.width = parent.width + 30;
         parent.items.push({
             getClass: function(value, metadata, record) {
+                var iconCls = 'sprite-image--plus'
                 if (bannerStore.findRecord('articleId', record.get('Article_id'))) {
-                    return 'sprite-image--pencil'
+                    iconCls = 'sprite-image--pencil';
                 }
 
-                return 'sprite-image--plus';
+                return iconCls + ' article-banner-' + record.get('Article_id');
             },
             handler: function (view, rowIndex, colIndex, item, opts, record) {
                 me.fireEvent('createBannerManager', record);
