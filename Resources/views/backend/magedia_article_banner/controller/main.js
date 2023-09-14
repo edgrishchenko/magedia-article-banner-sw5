@@ -86,7 +86,7 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
             bannerStore : bannerStore,
             record      : selection,
             scope       : me,
-            articleId  : articleId,
+            articleId   : articleId,
             title       : record.get('Article_name')
         });
     },
@@ -176,6 +176,31 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
                 }
             });
         }
+    },
+
+    /**
+     * Event listener method which will be fired when the user double
+     * clicks an existing banner.
+     *
+     * Opens the "edit banner" window and passes the associated banner record
+     *
+     * @event dblclick
+     * @param [object] node - HTML DOM node of the clicked banner
+     * @param [object] record - Associated Ext.data.Model
+     * @return void
+     */
+    onBannerClick : function(node, record) {
+        var me              = this,
+            bannerStore     = me.subApplication.bannerStore,
+            articleId      = record.get('articleId');
+
+        me.getView('Shopware.apps.MagediaArticleBanner.view.main.BannerForm').create({
+            bannerStore : bannerStore,
+            record      : record,
+            scope       : me,
+            articleId   : articleId,
+            title       : record.get('Article_name')
+        });
     },
 
     /**
