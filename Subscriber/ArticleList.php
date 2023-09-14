@@ -4,7 +4,7 @@ namespace MagediaArticleBanner\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 
-class ExtendArticleList implements SubscriberInterface
+class ArticleList implements SubscriberInterface
 {
     /**
      * @var string
@@ -21,7 +21,7 @@ class ExtendArticleList implements SubscriberInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'Enlight_Controller_Action_PostDispatchSecure_Backend_ArticleList' => 'onArticleListPostDispatch'

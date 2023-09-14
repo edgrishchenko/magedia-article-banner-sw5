@@ -12,17 +12,11 @@ use Shopware\Components\Plugin\Context\UninstallContext;
 
 class MagediaArticleBanner extends Plugin
 {
-    /**
-     * {@inheritdoc}
-     */
     public function install(InstallContext $installContext)
     {
         $this->createDatabase();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function activate(ActivateContext $activateContext)
     {
         $activateContext->scheduleClearCache(InstallContext::CACHE_LIST_ALL);
