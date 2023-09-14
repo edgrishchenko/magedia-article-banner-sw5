@@ -1,5 +1,12 @@
+/*{namespace name=backend/magedia_article_banner/view/main}*/
 
-
+/**
+ * Banner View Main Form
+ *
+ * View component which features a form panel to edit
+ * a existing banner.
+ */
+//{block name="backend/magedia_article_banner/view/main/banner_form"}
 Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerForm', {
     extend : 'Enlight.app.Window',
     alias: 'widget.banner-view-main-banner-form',
@@ -224,3 +231,4 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerForm', {
         }];
     }
 });
+//{/block}

@@ -1,10 +1,10 @@
 /**
- * Shopware Model - Banner
+ * Magedia Article Banner Model - Banner
  *
  * Backend - Management for Banner. Create | Modify | Delete.
  * Standard banner model
  */
-
+//{block name="backend/magedia_article_banner/model/banner"}
 Ext.define('Shopware.apps.MagediaArticleBanner.model.BannerDetail', {
     /**
      * Extends the default extjs 4 model
@@ -69,3 +69,4 @@ Ext.define('Shopware.apps.MagediaArticleBanner.model.BannerDetail', {
         }
     }
 });
+//{/block}

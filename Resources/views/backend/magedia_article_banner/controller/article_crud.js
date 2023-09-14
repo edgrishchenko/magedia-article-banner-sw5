@@ -1,5 +1,8 @@
-
-
+/**
+ * This controller takes care of all CRUD actions for products
+ */
+//{namespace name=backend/magedia_article_banner/main}
+//{block name="backend/magedia_article_banner/controller/article_crud"}
 Ext.define('Shopware.apps.MagediaArticleBanner.controller.ArticleCrud', {
 
     /**
@@ -46,3 +49,4 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.ArticleCrud', {
         }).show();
     },
 });
+//{/block}

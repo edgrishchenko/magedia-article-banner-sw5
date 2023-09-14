@@ -1,5 +1,12 @@
+/*{namespace name=backend/magedia_article_banner/view/main}*/
 
-
+/**
+ * Banner View Main Panel
+ *
+ * View component which features the main panel
+ * of the module. It displays the banners.
+ */
+//{block name="backend/magedia_article_banner/view/main"}
 Ext.define('Shopware.apps.MagediaArticleBanner.view.Main', {
     extend: 'Enlight.app.Window',
     layout: 'fit',
@@ -12,3 +19,4 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.Main', {
     border: 0,
     title: '{s name=main_title}Banner Management{/s}'
 });
+//{/block}

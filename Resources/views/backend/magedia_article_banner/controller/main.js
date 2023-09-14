@@ -1,6 +1,8 @@
-// This is the controller
-
-
+/**
+ *
+ */
+//{namespace name=backend/magedia_article_banner/main}
+//{block name="backend/magedia_article_banner/controller/main"}
 Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
     /**
      * Override the customer main controller
@@ -228,3 +230,4 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
 
     }
 });
+//{/block}

@@ -1,12 +1,12 @@
 /**
- * Shopware Store - Banner
+ * Magedia Article Banner Store - Banner
  *
  * Backend - Defines the banner store
  *
- * This store will be loaded automatically and will just request 30 itemFs at once.
+ * This store will be loaded automatically and will just request 30 items at once.
  * It will utilize the Banner Model @see Banner Model
  */
-
+//{block name="backend/magedia_article_banner/store/banner"}
 Ext.define('Shopware.apps.MagediaArticleBanner.store.Banner', {
     extend : 'Ext.data.Store',
     id:'bannerStore',
@@ -32,3 +32,4 @@ Ext.define('Shopware.apps.MagediaArticleBanner.store.Banner', {
         }
     }
 });
+//{/block}
