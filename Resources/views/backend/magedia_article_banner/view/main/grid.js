@@ -16,10 +16,13 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.Grid', {
             bannerStore = me.subApp.bannerStore;
             parent = me.callParent(arguments);
 
-
         parent.width = parent.width + 30;
         parent.items.push({
             getClass: function(value, metadata, record) {
+
+                bannerStore.clearFilter(true);
+                bannerStore.load();
+
                 var iconCls = 'sprite-image--plus'
                 if (bannerStore.findRecord('articleId', record.get('Article_id'))) {
                     iconCls = 'sprite-image--pencil';

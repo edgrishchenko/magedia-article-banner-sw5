@@ -49,11 +49,20 @@ class Banner extends ModelEntity
     private $id;
 
     /**
+     * Title for that banner
+     *
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=250, nullable=false)
+     */
+    private $title;
+
+    /**
      * Description for that banner. This description will be used as alt and title attribute
      *
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=60, nullable=false)
+     * @ORM\Column(name="description", type="string", length=250, nullable=false)
      */
     private $description;
 
@@ -150,9 +159,36 @@ class Banner extends ModelEntity
     }
 
     /**
+     * Allows to set a new title for the banner.
+     *
+     * Max: 250 chars
+     * This filed must not be left empty
+     *
+     * @param string $title
+     *
+     * @return Banner
+     */
+    public function setTitle(string $title): Banner
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Returns the title of the banner.
+     *
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
      * Allows to set a new description for the banner.
      *
-     * Max: 60 chars
+     * Max: 250 chars
      * This filed must not be left empty
      *
      * @param string $description

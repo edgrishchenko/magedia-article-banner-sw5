@@ -95,13 +95,11 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.Panel', {
 
             /**
              * Data preparation for the data view
-             * eg. truncate the description to max 27 chars
              *
              * @param data
              */
             prepareData : function(data) {
                 Ext.apply(data, {
-                    description : Ext.util.Format.ellipsis(data.description, 27),
                     desktop_img         : data.desktopImage,
                     mobile_img         : data.mobileImage,
                     id           : data.id

@@ -13,7 +13,7 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd', {
     cls         : 'addWindow',
     autoShow    : true,
     border      : 0,
-    title: '{s name=form_add/title}Create a new banner for article: [0]{/s}',
+    title: '{s name=form_add/window_title}Create a new banner for article: [0]{/s}',
     height : 510,
     layout: {
         type: 'vbox',
@@ -50,7 +50,17 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd', {
      */
     createFormPanel: function() {
         var me = this,
-            descField, linkField, validFrom, validUntil, desktopDropZone, mobileDropZone;
+            titleField, descField, linkField, validFrom, validUntil, desktopDropZone, mobileDropZone;
+
+        // Title field
+        titleField = Ext.create('Ext.form.field.Text', {
+            name        : 'title',
+            anchor      : '100%',
+            allowBlank  : false,
+            labelWidth: 155,
+            fieldLabel  : '{s name=form_add/title}Title{/s}',
+            supportText : '{s name=form_add/title_support}Title of the banner e.g. Your gift!{/s}'
+        });
 
         // Description field
         descField = Ext.create('Ext.form.field.Text', {
@@ -127,7 +137,7 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd', {
             flex: 1,
             autoScroll: true,
             defaults    : { anchor: '100%' },
-            items       : [ descField, linkField, me.linkTarget, validFrom, validUntil, desktopDropZone, mobileDropZone ]
+            items       : [ titleField, descField, linkField, me.linkTarget, validFrom, validUntil, desktopDropZone, mobileDropZone ]
         });
         me.formPanel.add(me.createHiddenFields());
 

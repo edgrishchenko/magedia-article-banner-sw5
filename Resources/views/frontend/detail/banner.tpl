@@ -5,6 +5,8 @@
             {if $sArticleBanner.desktopMedia.thumbnails}
                 {if !$sArticleBanner.link || $sArticleBanner.link == "#" || $sArticleBanner.link == ""}
 
+                   <div class="content--title">{$sArticleBanner.title|escape}</div>
+
                     {* Image only banner *}
                     {block name='frontend_listing_image_only_banner'}
                         <picture>

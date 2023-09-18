@@ -49,7 +49,17 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerForm', {
      */
     createFormPanel: function() {
         var me = this,
-            descField, linkField, validFrom, validUntil;
+            titleField, descField, linkField, validFrom, validUntil;
+
+        // Title field
+        titleField = Ext.create('Ext.form.field.Text', {
+            name        : 'title', //
+            anchor      : '100%',
+            labelWidth: 155,
+            allowBlank  : false,
+            fieldLabel  : '{s name=form_add/title}Title{/s}',
+            supportText : '{s name=form_add/title_support}Title of the banner e.g. Your gift!{/s}'
+        });
 
         // Description field
         descField = Ext.create('Ext.form.field.Text', {
@@ -124,7 +134,7 @@ Ext.define('Shopware.apps.MagediaArticleBanner.view.main.BannerForm', {
             flex: 1,
             autoScroll: true,
             defaults: { anchor: '100%' },
-            items       : [ descField, linkField, me.linkTarget, validFrom, validUntil, desktopDropZone, mobileDropZone ]
+            items       : [ titleField, descField, linkField, me.linkTarget, validFrom, validUntil, desktopDropZone, mobileDropZone ]
         });
 
         return me.formPanel;

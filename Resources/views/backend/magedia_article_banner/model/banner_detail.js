@@ -28,6 +28,7 @@ Ext.define('Shopware.apps.MagediaArticleBanner.model.BannerDetail', {
     fields : [
         //{block name="backend/banner/model/banner/fields"}{/block}
         { name : 'id',              type: 'int' },
+        { name : 'title',              type: 'string' },
         { name : 'description',     type: 'string' },
         { name : 'validFromDate', type: 'date', dateFormat: 'd.m.Y' },
         { name : 'validFromTime', type: 'date', dateFormat: 'H:i' },
