@@ -6,6 +6,7 @@
                 {if !$sArticleBanner.link || $sArticleBanner.link == "#" || $sArticleBanner.link == ""}
 
                    <div class="content--title">{$sArticleBanner.title|escape}</div>
+                   <div class="banner--description" style="margin-bottom: 10px">{$sArticleBanner.description|escape}</div>
 
                     {* Image only banner *}
                     {block name='frontend_listing_image_only_banner'}
