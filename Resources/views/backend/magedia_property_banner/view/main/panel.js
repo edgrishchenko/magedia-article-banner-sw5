@@ -128,10 +128,10 @@ Ext.define('Shopware.apps.MagediaPropertyBanner.view.main.Panel', {
             '<tpl for=".">',
             '<div class="thumb-wrap" id="{literal}{id}{/literal}" style="width: 440px">',
             '<div class="thumb" style="width: 430px; height: 150px; margin: 0 3px 4px;">',
-            '<img src="{literal}{desktopImage}{/literal}" title="{literal}{description}{/literal}" style="width: 205px; height: 140px; float: left">',
-            '<img src="{literal}{mobileImage}{/literal}" title="{literal}{description}{/literal}" style="width: 205px; height: 140px; float: right">',
+            '<img src="{literal}{desktopImage}{/literal}" title="{literal}{altText}{/literal}" style="width: 205px; height: 140px; float: left">',
+            '<img src="{literal}{mobileImage}{/literal}" title="{literal}{altText}{/literal}" style="width: 205px; height: 140px; float: right">',
             '</div>',
-            '<span class="x-editable">{literal}{description}{/literal}</span>',
+            '<span class="x-editable">{literal}{altText}{/literal}</span>',
             '</div>',
             '</tpl>',
             '<div class="x-clear"></div>'

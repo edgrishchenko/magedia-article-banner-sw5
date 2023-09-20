@@ -50,7 +50,7 @@ Ext.define('Shopware.apps.MagediaPropertyBanner.view.main.BannerFormAdd', {
      */
     createFormPanel: function() {
         var me = this,
-            titleField, descField, linkField, validFrom, validUntil, desktopDropZone, mobileDropZone;
+            titleField, descField, altTextField, linkField, validFrom, validUntil, desktopDropZone, mobileDropZone;
 
         // Title field
         titleField = Ext.create('Ext.form.field.Text', {
@@ -68,6 +68,16 @@ Ext.define('Shopware.apps.MagediaPropertyBanner.view.main.BannerFormAdd', {
             labelWidth: 155,
             fieldLabel  : '{s name=form_add/description}Description{/s}',
             supportText : '{s name=form_add/description_support}Description of the banner e.g. Jackets-Winter-Special2013{/s}'
+        });
+
+        // Alt text field
+        altTextField = Ext.create('Ext.form.field.Text', {
+            name        : 'altText',
+            anchor      : '100%',
+            labelWidth: 155,
+            allowBlank  : false,
+            fieldLabel  : '{s name=form_add/alt_text}Alt text{/s}',
+            supportText : '{s name=form_add/alt_text_support}Alt text of the banner e.g. Jackets-Winter-Special2013{/s}'
         });
 
         // Link field
@@ -135,7 +145,7 @@ Ext.define('Shopware.apps.MagediaPropertyBanner.view.main.BannerFormAdd', {
             flex: 1,
             autoScroll: true,
             defaults    : { anchor: '100%' },
-            items       : [ titleField, descField, linkField, me.linkTarget, validFrom, validUntil, desktopDropZone, mobileDropZone ]
+            items       : [ titleField, descField, altTextField, linkField, me.linkTarget, validFrom, validUntil, desktopDropZone, mobileDropZone ]
         });
         me.formPanel.add(me.createHiddenFields());
 

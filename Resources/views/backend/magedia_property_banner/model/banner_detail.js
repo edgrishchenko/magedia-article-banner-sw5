@@ -27,22 +27,23 @@ Ext.define('Shopware.apps.MagediaPropertyBanner.model.BannerDetail', {
      */
     fields : [
         //{block name="backend/banner/model/banner/fields"}{/block}
-        { name : 'id',              type: 'int' },
-        { name : 'title',              type: 'string' },
-        { name : 'description',     type: 'string' },
+        { name : 'id',            type: 'int' },
+        { name : 'title',         type: 'string' },
+        { name : 'description',   type: 'string' },
+        { name : 'altText',       type: 'string' },
         { name : 'validFromDate', type: 'date', dateFormat: 'd.m.Y' },
         { name : 'validFromTime', type: 'date', dateFormat: 'H:i' },
         { name : 'validToDate',   type: 'date', dateFormat: 'd.m.Y' },
         { name : 'validToTime',   type: 'date', dateFormat: 'H:i' },
-        { name : 'link',            type: 'string' },
-        { name : 'desktopImage',             type: 'string' },
+        { name : 'link',          type: 'string' },
+        { name : 'desktopImage',  type: 'string' },
         { name : 'desktop-media-manager-selection', type: 'string' },
-        { name : 'mobileImage',             type: 'string' },
+        { name : 'mobileImage',   type: 'string' },
         { name : 'mobile-media-manager-selection', type: 'string' },
-        { name : 'linkTarget',     type: 'string' },
-        { name : 'propertyId',      type: 'int' },
-        { name : 'desktopExtension',       type: 'string' },
-        { name : 'mobileExtension',       type: 'string' }
+        { name : 'linkTarget',    type: 'string' },
+        { name : 'propertyId',    type: 'int' },
+        { name : 'desktopExtension', type: 'string' },
+        { name : 'mobileExtension', type: 'string' }
     ],
 
     /**

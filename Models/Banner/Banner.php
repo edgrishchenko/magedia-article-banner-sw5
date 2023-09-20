@@ -58,13 +58,22 @@ class Banner extends ModelEntity
     private $title;
 
     /**
-     * Description for that banner. This description will be used as alt and title attribute
+     * Description for that banner.
      *
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=250, nullable=false)
      */
     private $description;
+
+    /**
+     * Alt attribute for that banner.
+     *
+     * @var string
+     *
+     * @ORM\Column(name="alt_text", type="string", length=250, nullable=false)
+     */
+    private $altText;
 
     /**
      * Defines the date and time when this banner should be displayed
@@ -210,6 +219,33 @@ class Banner extends ModelEntity
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    /**
+     * Allows to set a new alt attribute for the banner.
+     *
+     * Max: 250 chars
+     * This filed must not be left empty
+     *
+     * @param string $altText
+     *
+     * @return Banner
+     */
+    public function setAltText(string $altText): Banner
+    {
+        $this->altText = $altText;
+
+        return $this;
+    }
+
+    /**
+     * Returns the alt attribute of the banner.
+     *
+     * @return string
+     */
+    public function getAltText(): string
+    {
+        return $this->altText;
     }
 
     /**
