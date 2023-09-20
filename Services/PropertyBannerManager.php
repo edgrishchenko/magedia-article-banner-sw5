@@ -45,7 +45,7 @@ class PropertyBannerManager
      * @return array|false Contains all information about the banner-object
      * @throws Exception
      */
-    public function sPropertyBanner(int $sProperty, int $limit = 1)
+    public function sPropertyBanner(int $sProperty, int $limit = 1): array
     {
         $limit = (int) $limit;
         try {

@@ -56,7 +56,6 @@ Ext.define('Shopware.apps.MagediaPropertyBanner.view.main.BannerForm', {
             name        : 'title', //
             anchor      : '100%',
             labelWidth: 155,
-            allowBlank  : false,
             fieldLabel  : '{s name=form_add/title}Title{/s}',
             supportText : '{s name=form_add/title_support}Title of the banner e.g. Your gift!{/s}'
         });
@@ -66,7 +65,6 @@ Ext.define('Shopware.apps.MagediaPropertyBanner.view.main.BannerForm', {
             name        : 'description', //
             anchor      : '100%',
             labelWidth: 155,
-            allowBlank  : false,
             fieldLabel  : '{s name=form_add/description}Description{/s}',
             supportText : '{s name=form_add/description_support}Description of the banner e.g. Jackets-Winter-Special2013{/s}'
         });
@@ -157,7 +155,6 @@ Ext.define('Shopware.apps.MagediaPropertyBanner.view.main.BannerForm', {
                 labelWidth: 155,
                 minValue    : new Date(),
                 value       : new Date(),
-                allowBlank  : true,
                 listeners: {
                     change: function(field, newValue) {
                         me.validToField.setMinValue(newValue);
@@ -198,7 +195,6 @@ Ext.define('Shopware.apps.MagediaPropertyBanner.view.main.BannerForm', {
             supportText : '{s name=form_add/to_date_support}Format jjjj.mm.tt{/s}',
             columnWidth : .60,
             labelWidth: 155,
-            allowBlank  : true,
             listeners: {
                 change: function(field, newValue) {
                     me.validFromField.setMaxValue(newValue);

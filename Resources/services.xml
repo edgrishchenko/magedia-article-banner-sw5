@@ -14,7 +14,7 @@
             <argument type="service" id="dbal_connection"/>
         </service>
 
-        <service id="magedia_property_banner.subscriber.extend_property_detail" class="MagediaPropertyBanner\Subscriber\PropertyDetail">
+        <service id="magedia_property_banner.subscriber.extend_property_detail" class="MagediaPropertyBanner\Subscriber\ArticleDetail">
             <argument>%magedia_property_banner.plugin_dir%</argument>
             <argument type="service" id="template"/>
             <argument type="service" id="magedia_property_banner.service.property_banner_manager"/>

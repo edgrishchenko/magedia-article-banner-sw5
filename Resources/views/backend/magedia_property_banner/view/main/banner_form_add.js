@@ -56,7 +56,6 @@ Ext.define('Shopware.apps.MagediaPropertyBanner.view.main.BannerFormAdd', {
         titleField = Ext.create('Ext.form.field.Text', {
             name        : 'title',
             anchor      : '100%',
-            allowBlank  : false,
             labelWidth: 155,
             fieldLabel  : '{s name=form_add/title}Title{/s}',
             supportText : '{s name=form_add/title_support}Title of the banner e.g. Your gift!{/s}'
@@ -66,7 +65,6 @@ Ext.define('Shopware.apps.MagediaPropertyBanner.view.main.BannerFormAdd', {
         descField = Ext.create('Ext.form.field.Text', {
             name        : 'description',
             anchor      : '100%',
-            allowBlank  : false,
             labelWidth: 155,
             fieldLabel  : '{s name=form_add/description}Description{/s}',
             supportText : '{s name=form_add/description_support}Description of the banner e.g. Jackets-Winter-Special2013{/s}'
@@ -206,7 +204,6 @@ Ext.define('Shopware.apps.MagediaPropertyBanner.view.main.BannerFormAdd', {
                 labelWidth: 155,
                 minValue    : new Date(),
                 value       : new Date(),
-                allowBlank  : true,
                 listeners: {
                     change: function(field, newValue) {
                         me.validToField.setMinValue(newValue);
@@ -247,7 +244,6 @@ Ext.define('Shopware.apps.MagediaPropertyBanner.view.main.BannerFormAdd', {
             labelWidth: 155,
             supportText : '{s name=form_add/to_date_support}Format jjjj.mm.tt{/s}',
             columnWidth : .60,
-            allowBlank  : true,
             listeners: {
                 change: function(field, newValue) {
                     me.validFromField.setMaxValue(newValue);

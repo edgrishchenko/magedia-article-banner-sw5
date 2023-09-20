@@ -5,7 +5,7 @@ namespace MagediaPropertyBanner\Subscriber;
 use Enlight\Event\SubscriberInterface;
 use MagediaPropertyBanner\Services\PropertyBannerManager;
 
-class PropertyDetail implements SubscriberInterface
+class ArticleDetail implements SubscriberInterface
 {
     /**
      * @var string
@@ -55,9 +55,21 @@ class PropertyDetail implements SubscriberInterface
         if ($request->getControllerName() === 'detail') {
             $this->templateManager->addTemplateDir($this->pluginDirectory . '/Resources/views');
 
-            $propertyId = (int) $request->getParam('sProperty');
+            $properties = $controller->View()->getAssign()['sArticle']['sProperties'];
 
-            $controller->View()->assign('sPropertyBanner', $this->propertyBannerManager->sPropertyBanner($propertyId));
+            $propertyBanners = array();
+
+            foreach ($properties as $property) {
+                foreach ($property['options'] as $option) {
+                    $propertyBanner = $this->propertyBannerManager->sPropertyBanner($option['id']);
+
+                    if ($propertyBanner) {
+                        $propertyBanners[] = $propertyBanner;
+                    }
+                }
+            }
+
+            $controller->View()->assign('sPropertyBanners', $propertyBanners);
         }
 
     }

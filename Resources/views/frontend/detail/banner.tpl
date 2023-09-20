@@ -1,35 +1,36 @@
 {block name="frontend_listing_article_banner"}
-    {if $sArticleBanner}
-        <div class="banner--container">
+    {if $sPropertyBanners}
+        {foreach $sPropertyBanners as $sPropertyBanner}
+            <div class="banner--container">
+                {if $sPropertyBanner.desktopMedia.thumbnails}
+                    {if !$sPropertyBanner.link || $sPropertyBanner.link == "#" || $sPropertyBanner.link == ""}
 
-            {if $sArticleBanner.desktopMedia.thumbnails}
-                {if !$sArticleBanner.link || $sArticleBanner.link == "#" || $sArticleBanner.link == ""}
+                        <div class="content--title">{$sPropertyBanner.title|escape}</div>
+                        <div class="banner--description" style="margin-bottom: 10px">{$sPropertyBanner.description|escape}</div>
 
-                   <div class="content--title">{$sArticleBanner.title|escape}</div>
-                   <div class="banner--description" style="margin-bottom: 10px">{$sArticleBanner.description|escape}</div>
-
-                    {* Image only banner *}
-                    {block name='frontend_listing_image_only_banner'}
-                        <picture>
-                            <source srcset="{$sArticleBanner.desktopMedia.thumbnails[0].sourceSet}" media="(min-width: 48em)">
-
-                            <img srcset="{$sArticleBanner.mobileMedia.thumbnails[0].sourceSet}" alt="{$sArticleBanner.description|escape}" class="banner--img" />
-                        </picture>
-                    {/block}
-                {else}
-
-                    {* Normal banner *}
-                    {block name='frontend_listing_normal_banner'}
-                        <a href="{$sArticleBanner.link}" class="banner--link" {if $sArticleBanner.link_target}target="{$sArticleBanner.link_target}"{/if} title="{$sArticleBanner.description|escape}">
+                        {* Image only banner *}
+                        {block name='frontend_listing_image_only_banner'}
                             <picture>
-                                <source srcset="{$sArticleBanner.desktopMedia.thumbnails[0].sourceSet}" media="(min-width: 48em)">
+                                <source srcset="{$sPropertyBanner.desktopMedia.thumbnails[0].sourceSet}" media="(min-width: 48em)">
 
-                                <img srcset="{$sArticleBanner.mobileMedia.thumbnails[0].sourceSet}" alt="{$sArticleBanner.description|escape}" class="banner--img" />
+                                <img srcset="{$sPropertyBanner.mobileMedia.thumbnails[0].sourceSet}" alt="{$sPropertyBanner.description|escape}" class="banner--img" />
                             </picture>
-                        </a>
-                    {/block}
+                        {/block}
+                    {else}
+
+                        {* Normal banner *}
+                        {block name='frontend_listing_normal_banner'}
+                            <a href="{$sPropertyBanner.link}" class="banner--link" {if $sPropertyBanner.link_target}target="{$sPropertyBanner.link_target}"{/if} title="{$sPropertyBanner.description|escape}">
+                                <picture>
+                                    <source srcset="{$sPropertyBanner.desktopMedia.thumbnails[0].sourceSet}" media="(min-width: 48em)">
+
+                                    <img srcset="{$sPropertyBanner.mobileMedia.thumbnails[0].sourceSet}" alt="{$sPropertyBanner.description|escape}" class="banner--img" />
+                                </picture>
+                            </a>
+                        {/block}
+                    {/if}
                 {/if}
-            {/if}
-        </div>
+            </div>
+        {/foreach}
     {/if}
 {/block}

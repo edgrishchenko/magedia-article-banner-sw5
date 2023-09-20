@@ -24,7 +24,7 @@ Ext.define('Shopware.apps.MagediaPropertyBanner.controller.Main', {
         me.addRef({ ref:'deleteBannerButton', selector:'banner-view-main-panel button[action=deleteBanner]' });
         me.addRef({ ref:'mainPanel', selector:'bannermanager banner-view-main-panel' });
 
-        me.subApplication.bannerStore = me.subApplication.getStore('Shopware.apps.MagediaPropertyBanner.store.Banner').load();
+        me.subApplication.bannerStore = me.subApplication.getStore('Shopware.apps.MagediaPropertyBanner.store.Banner');
 
         me.control({
             'property-main-optionGrid':{

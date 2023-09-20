@@ -13,22 +13,18 @@ Ext.define('Shopware.apps.MagediaPropertyBanner.view.main.OptionGrid', {
 
     getColumns: function () {
         var me = this,
-            bannerStore = me.subApp.bannerStore,
+            bannerStore = me.subApp.bannerStore.load(),
             parent = me.callParent(arguments);
 
         parent[1].width = parent[1].width + 30;
         parent[1].items.push({
             getClass: function(value, metadata, record) {
-
-                bannerStore.clearFilter(true);
-                bannerStore.load();
-
                 var iconCls = 'sprite-image--plus'
-                if (bannerStore.findRecord('property', record.get('id'))) {
+                if (bannerStore.findRecord('propertyId', record.get('id'), 0, false, false, true)) {
                     iconCls = 'sprite-image--pencil';
                 }
 
-                return iconCls + ' article-banner-' + record.get('id');
+                return iconCls + ' property-banner-' + record.get('id');
             },
             handler: function (view, rowIndex, colIndex, item, opts, record) {
                 me.fireEvent('createBannerManager', record);
