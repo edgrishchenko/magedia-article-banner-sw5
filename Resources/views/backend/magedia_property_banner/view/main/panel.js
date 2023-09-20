@@ -1,4 +1,4 @@
-/*{namespace name=backend/magedia_article_banner/view/main}*/
+/*{namespace name=backend/magedia_property_banner/view/main}*/
 
 /**
  *  Banner View Main Panel
@@ -6,8 +6,8 @@
  * View component which features the main panel
  * of the module. It displays the banners.
  */
-//{block name="backend/magedia_article_banner/view/main/panel"}
-Ext.define('Shopware.apps.MagediaArticleBanner.view.main.Panel', {
+//{block name="backend/magedia_property_banner/view/main/panel"}
+Ext.define('Shopware.apps.MagediaPropertyBanner.view.main.Panel', {
     extend: 'Ext.container.Container',
     alias : 'widget.banner-view-main-panel',
     layout: 'border',

@@ -1,14 +1,14 @@
 /**
  *
  */
-//{namespace name=backend/magedia_article_banner/main}
-//{block name="backend/magedia_article_banner/controller/main"}
-Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
+//{namespace name=backend/magedia_property_banner/main}
+//{block name="backend/magedia_property_banner/controller/main"}
+Ext.define('Shopware.apps.MagediaPropertyBanner.controller.Main', {
     /**
-     * Override the customer main controller
+     * Override the property main controller
      * @string
      */
-    override: 'Shopware.apps.ArticleList.controller.Main',
+    override: 'Shopware.apps.Property.controller.Main',
 
     /**
      * keeps the message that will be shown if some banners should be deleted
@@ -24,9 +24,12 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
         me.addRef({ ref:'deleteBannerButton', selector:'banner-view-main-panel button[action=deleteBanner]' });
         me.addRef({ ref:'mainPanel', selector:'bannermanager banner-view-main-panel' });
 
-        me.subApplication.bannerStore = me.subApplication.getStore('Shopware.apps.MagediaArticleBanner.store.Banner').load();
+        me.subApplication.bannerStore = me.subApplication.getStore('Shopware.apps.MagediaPropertyBanner.store.Banner').load();
 
         me.control({
+            'property-main-optionGrid':{
+                createBannerManager: me.onCreateBannerManager,
+            },
             'banner-view-main-panel panel dataview':{
                 /*{if {acl_is_allowed privilege=update}}*/
                 itemdblclick: me.onBannerClick,
@@ -57,18 +60,44 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
     /**
      * @param record
      */
+    onCreateBannerManager: function (record) {
+        var me = this,
+            bannerStore = me.subApplication.bannerStore,
+            propertyId  = record.get('id');
+
+        // remove the old filter and set a new one
+        bannerStore.clearFilter(true);
+        bannerStore.filter("propertyId", propertyId);
+        bannerStore.load({
+            params: { propertyId: propertyId }
+        });
+
+        me.panel = this.subApplication.getView('Shopware.apps.MagediaPropertyBanner.view.main.Panel').create({
+            bannerStore: bannerStore,
+            record: record
+        });
+
+        // Create an show the applications main view.
+        me.main = this.subApplication.getView('Shopware.apps.MagediaPropertyBanner.view.Main').create({
+            items: [ me.panel ]
+        }).show();
+    },
+
+    /**
+     * @param record
+     */
     onAddBanner : function(record) {
         var me = this,
             bannerStore = me.subApplication.bannerStore,
-            articleId = record.get('Article_id'),
-            model = Ext.create('Shopware.apps.MagediaArticleBanner.model.BannerDetail'),
-            currentArticle = record.data
+            propertyId = record.get('id'),
+            model = Ext.create('Shopware.apps.MagediaPropertyBanner.model.BannerDetail'),
+            currentProperty = record.data
 
-        me.getView('Shopware.apps.MagediaArticleBanner.view.main.BannerFormAdd').create({
+        me.getView('Shopware.apps.MagediaPropertyBanner.view.main.BannerFormAdd').create({
             bannerStore: bannerStore,
             record: model,
-            articleId: articleId,
-            article: currentArticle
+            propertyId: propertyId,
+            property: currentProperty
         });
     },
 
@@ -82,14 +111,14 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
             bannerStore = me.subApplication.bannerStore,
             dataView        = me.getMainPanel().dataView,
             selection       = dataView.getSelectionModel().getLastSelected(),
-            articleId      = selection.get('articleId')
+            propertyId      = selection.get('propertyId')
 
-        me.getView('Shopware.apps.MagediaArticleBanner.view.main.BannerForm').create({
+        me.getView('Shopware.apps.MagediaPropertyBanner.view.main.BannerForm').create({
             bannerStore : bannerStore,
             record      : selection,
             scope       : me,
-            articleId   : articleId,
-            title       : record.get('Article_name')
+            propertyId   : propertyId,
+            title       : record.get('value')
         });
     },
 
@@ -122,8 +151,8 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
                         store.save();
                         store.load();
 
-                        var articleId = selection[0].get('articleId');
-                        var bannerManagerButton = Ext.select('.article-banner-' + articleId);
+                        var propertyId = selection[0].get('propertyId');
+                        var bannerManagerButton = Ext.select('.property-banner-' + propertyId);
 
                         if (store.getCount() === 0) {
                             bannerManagerButton.removeCls('sprite-image--pencil');
@@ -165,11 +194,11 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
                     Shopware.Msg.createGrowlMessage('', '{s name=saved_success}Banner has been saved.{/s}', '{s name=main_title}{/s}');
                     win.close();
                     store.load({
-                        params: { articleId : record.get('articleId') }
+                        params: { propertyId : record.get('propertyId') }
                     });
 
-                    var articleId = record.get('articleId');
-                    var bannerManagerButton = Ext.select('.article-banner-' + articleId);
+                    var propertyId = record.get('propertyId');
+                    var bannerManagerButton = Ext.select('.property-banner-' + propertyId);
 
                     if (store.getCount() === 0) {
                         bannerManagerButton.removeCls('sprite-image--plus');
@@ -194,14 +223,14 @@ Ext.define('Shopware.apps.MagediaArticleBanner.controller.Main', {
     onBannerClick : function(node, record) {
         var me              = this,
             bannerStore     = me.subApplication.bannerStore,
-            articleId      = record.get('articleId');
+            propertyId      = record.get('propertyId');
 
-        me.getView('Shopware.apps.MagediaArticleBanner.view.main.BannerForm').create({
+        me.getView('Shopware.apps.MagediaPropertyBanner.view.main.BannerForm').create({
             bannerStore : bannerStore,
             record      : record,
             scope       : me,
-            articleId   : articleId,
-            title       : record.get('Article_name')
+            propertyId   : propertyId,
+            title       : record.get('Property_name')
         });
     },
 

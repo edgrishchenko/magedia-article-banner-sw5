@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-use MagediaArticleBanner\Models\Banner\Banner;
-use MagediaArticleBanner\Models\Banner\Repository;
+use MagediaPropertyBanner\Models\Banner\Banner;
+use MagediaPropertyBanner\Models\Banner\Repository;
 
 /**
  * This controller is used to create, update, delete and get banner data from the database.
  * Any prior live shopping code has been removed. Only non live shopping banners are used by this controller.
  * The frontend part is handled direct in engine/core/class/sMarketing.php in the method sBanner().
  */
-class Shopware_Controllers_Backend_MagediaArticleBanner extends Shopware_Controllers_Backend_ExtJs
+class Shopware_Controllers_Backend_MagediaPropertyBanner extends Shopware_Controllers_Backend_ExtJs
 {
     /**
      * Test repository injection variable
@@ -56,7 +56,7 @@ class Shopware_Controllers_Backend_MagediaArticleBanner extends Shopware_Control
     public function getAllBanners()
     {
         $params = $this->Request()->getParams();
-        $filter = (empty($params['articleId'])) ? null : (int) $params['articleId'];
+        $filter = (empty($params['propertyId'])) ? null : (int) $params['propertyId'];
 
         $query = $this->repository->getBanners($filter);
         $banners = $query->getArrayResult();

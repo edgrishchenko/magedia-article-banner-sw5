@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace MagediaArticleBanner\Services;
+namespace MagediaPropertyBanner\Services;
 
 use Doctrine\DBAL\Connection;
 use Exception;
-use MagediaArticleBanner\Models\Banner\Banner;
+use MagediaPropertyBanner\Models\Banner\Banner;
 use PDO;
 use Shopware\Bundle\StoreFrontBundle\Service\ContextServiceInterface;
 use Shopware\Components\Compatibility\LegacyStructConverter;
 
-class ArticleBannerManager
+class PropertyBannerManager
 {
     /**
      * @var ContextServiceInterface
@@ -37,20 +37,20 @@ class ArticleBannerManager
     }
 
     /**
-     * Get banners to display in the article
+     * Get banners to display in the property
      *
-     * @param int $sArticle
+     * @param int $sProperty
      * @param int $limit
      *
      * @return array|false Contains all information about the banner-object
      * @throws Exception
      */
-    public function sArticleBanner(int $sArticle, int $limit = 1)
+    public function sPropertyBanner(int $sProperty, int $limit = 1)
     {
         $limit = (int) $limit;
         try {
             $bannerRepository = Shopware()->Models()->getRepository(Banner::class);
-            $bannerQuery = $bannerRepository->getAllActiveBanners($sArticle, $limit);
+            $bannerQuery = $bannerRepository->getAllActiveBanners($sProperty, $limit);
             if ($bannerQuery) {
                 $getBanners = $bannerQuery->getArrayResult();
             } else {
@@ -83,7 +83,7 @@ class ArticleBannerManager
             $getAffectedBanners['valid_from'] = $getAffectedBanners['validFrom'];
             $getAffectedBanners['valid_to'] = $getAffectedBanners['validTo'];
             $getAffectedBanners['link_target'] = $getAffectedBanners['linkTarget'];
-            $getAffectedBanners['articleID'] = $getAffectedBanners['articleId'];
+            $getAffectedBanners['propertyID'] = $getAffectedBanners['propertyId'];
 
             $getAffectedBanners['desktop_img'] = $getAffectedBanners['desktopImage'];
             $getAffectedBanners['mobile_img'] = $getAffectedBanners['mobileImage'];

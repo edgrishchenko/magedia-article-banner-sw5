@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace MagediaArticleBanner\Models\Banner;
+namespace MagediaPropertyBanner\Models\Banner;
 
 use DateTime;
 use Doctrine\DBAL\Connection;
@@ -17,7 +17,7 @@ class Repository extends ModelRepository
 {
     /**
      * Loads all banners. The $filter parameter can
-     * be used to narrow the selection down to an article id.
+     * be used to narrow the selection down to an property id.
      *
      * @param int|null $filter
      *
@@ -31,11 +31,11 @@ class Repository extends ModelRepository
     }
 
     /**
-     * Returns all banners for a given article which are still
+     * Returns all banners for a given property which are still
      * valid including liveshopping banners.
      * The amount of returned banners can be with the $limit parameter.
      *
-     * @param int|null $filter    Article ID
+     * @param int|null $filter    Property ID
      * @param int $limit     Limit
      * @param bool $randomize
      */
@@ -65,7 +65,7 @@ class Repository extends ModelRepository
 
     /**
      * Loads all banners without any live shopping banners. The $filter parameter can
-     * be used to narrow the selection down to an article id.
+     * be used to narrow the selection down to an property id.
      * If the second parameter is set to false only banners which are active will be returned.
      *
      * @param int|null $filter
@@ -77,7 +77,7 @@ class Repository extends ModelRepository
         $builder = $this->createQueryBuilder('banner');
         if ($filter !== null || !empty($filter)) {
             // Filter the displayed columns with the passed filter
-            $builder->andWhere('banner.articleId = ?1')
+            $builder->andWhere('banner.propertyId = ?1')
                 ->setParameter(1, $filter);
         }
 
@@ -85,12 +85,12 @@ class Repository extends ModelRepository
     }
 
     /**
-     * @param int $articleId
+     * @param int $propertyId
      * @param int $limit
      *
      * @return array
      */
-    public function getBannerIds(int $articleId, int $limit = 0): array
+    public function getBannerIds(int $propertyId, int $limit = 0): array
     {
         $builder = $this->createQueryBuilder('banner');
         $today = new DateTime();
@@ -104,8 +104,8 @@ class Repository extends ModelRepository
             ->setParameter(6, null);
 
         $builder->select(['banner.id as id'])
-            ->andWhere('banner.articleId = ?1')
-            ->setParameter(1, $articleId);
+            ->andWhere('banner.propertyId = ?1')
+            ->setParameter(1, $propertyId);
         $retval = [];
         $data = $builder->getQuery()->getArrayResult();
         foreach ($data as $id) {

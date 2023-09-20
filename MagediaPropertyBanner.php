@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace MagediaArticleBanner;
+namespace MagediaPropertyBanner;
 
 use Doctrine\ORM\Tools\SchemaTool;
-use MagediaArticleBanner\Models\Banner\Banner;
+use MagediaPropertyBanner\Models\Banner\Banner;
 use Shopware\Components\Model\ModelManager;
 use Shopware\Components\Plugin;
 use Shopware\Components\Plugin\Context\ActivateContext;
 use Shopware\Components\Plugin\Context\InstallContext;
 use Shopware\Components\Plugin\Context\UninstallContext;
 
-class MagediaArticleBanner extends Plugin
+class MagediaPropertyBanner extends Plugin
 {
     public function install(InstallContext $installContext)
     {

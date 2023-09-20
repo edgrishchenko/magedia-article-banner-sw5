@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace MagediaArticleBanner\Models\Banner;
+namespace MagediaPropertyBanner\Models\Banner;
 
 use DateTime;
 use DateTimeInterface;
@@ -11,7 +11,7 @@ use Shopware\Components\Model\ModelEntity;
 /**
  * Banner Model
  * <br>
- * This Model represented a banner which can be displayed on top of a given article.
+ * This Model represented a banner which can be displayed on top of a given property.
  * A banner can be shown based on a given time window. To set this window you have to
  * set the following fields
  * - validFrom as datetime
@@ -23,15 +23,15 @@ use Shopware\Components\Model\ModelEntity;
  *
  * Relations and Associations
  * <code>
- * - Article    =>  Shopware\Models\Article\Article     [1:n] [s_articles]
+ * - Property    =>  Shopware\Models\Property\Property     [1:n] [s_propertys]
  * </code>
  *
- * Indices for magedia_article_banners:
+ * Indices for magedia_property_banners:
  * <code>
  *   - PRIMARY KEY (`id`)
  * </code>
  *
- * @ORM\Table(name="magedia_article_banners")
+ * @ORM\Table(name="magedia_property_banners")
  * @ORM\Entity(repositoryClass="Repository")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -122,13 +122,13 @@ class Banner extends ModelEntity
     private $linkTarget;
 
     /**
-     * The id of the article for which this banner is for.
+     * The id of the property for which this banner is for.
      *
      * @var int
      *
-     * @ORM\Column(name="articleID", type="integer", nullable=false)
+     * @ORM\Column(name="propertyID", type="integer", nullable=false)
      */
-    private $articleId;
+    private $propertyId;
 
     /**
      * The extension of the banner desktop image file will be stored here
@@ -405,15 +405,15 @@ class Banner extends ModelEntity
     }
 
     /**
-     * Set the article id on which this banner should be displayed
+     * Set the property id on which this banner should be displayed
      *
-     * @param int $articleId
+     * @param int $propertyId
      *
      * @return Banner
      */
-    public function setArticleId(int $articleId): Banner
+    public function setPropertyId(int $propertyId): Banner
     {
-        $this->articleId = $articleId;
+        $this->propertyId = $propertyId;
 
         return $this;
     }
@@ -423,9 +423,9 @@ class Banner extends ModelEntity
      *
      * @return int
      */
-    public function getArticleId(): int
+    public function getPropertyId(): int
     {
-        return $this->articleId;
+        return $this->propertyId;
     }
 
     /**

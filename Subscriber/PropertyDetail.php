@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace MagediaArticleBanner\Subscriber;
+namespace MagediaPropertyBanner\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
-use MagediaArticleBanner\Services\ArticleBannerManager;
+use MagediaPropertyBanner\Services\PropertyBannerManager;
 
-class ArticleDetail implements SubscriberInterface
+class PropertyDetail implements SubscriberInterface
 {
     /**
      * @var string
@@ -18,23 +18,23 @@ class ArticleDetail implements SubscriberInterface
     private $templateManager;
 
     /**
-     * @var ArticleBannerManager
+     * @var PropertyBannerManager
      */
-    private $articleBannerManager;
+    private $propertyBannerManager;
 
     /**
      * @param $pluginDirectory
      * @param \Enlight_Template_Manager $templateManager
-     * @param ArticleBannerManager $articleBannerManager
+     * @param PropertyBannerManager $propertyBannerManager
      */
     public function __construct(
         $pluginDirectory,
         \Enlight_Template_Manager $templateManager,
-        ArticleBannerManager $articleBannerManager
+        PropertyBannerManager $propertyBannerManager
     ) {
         $this->pluginDirectory = $pluginDirectory;
         $this->templateManager = $templateManager;
-        $this->articleBannerManager = $articleBannerManager;
+        $this->propertyBannerManager = $propertyBannerManager;
     }
 
     /**
@@ -55,9 +55,9 @@ class ArticleDetail implements SubscriberInterface
         if ($request->getControllerName() === 'detail') {
             $this->templateManager->addTemplateDir($this->pluginDirectory . '/Resources/views');
 
-            $articleId = (int) $request->getParam('sArticle');
+            $propertyId = (int) $request->getParam('sProperty');
 
-            $controller->View()->assign('sArticleBanner', $this->articleBannerManager->sArticleBanner($articleId));
+            $controller->View()->assign('sPropertyBanner', $this->propertyBannerManager->sPropertyBanner($propertyId));
         }
 
     }

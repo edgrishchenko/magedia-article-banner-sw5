@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace MagediaArticleBanner\Subscriber;
+namespace MagediaPropertyBanner\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 
-class ArticleList implements SubscriberInterface
+class PropertyList implements SubscriberInterface
 {
     /**
      * @var string
@@ -24,11 +24,11 @@ class ArticleList implements SubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            'Enlight_Controller_Action_PostDispatchSecure_Backend_ArticleList' => 'onArticleListPostDispatch'
+            'Enlight_Controller_Action_PostDispatchSecure_Backend_Property' => 'onPropertyPostDispatch'
         ];
     }
 
-    public function onArticleListPostDispatch(\Enlight_Event_EventArgs $args)
+    public function onPropertyPostDispatch(\Enlight_Event_EventArgs $args)
     {
         /** @var \Shopware_Controllers_Backend_Customer $controller */
         $controller = $args->getSubject();
@@ -38,7 +38,7 @@ class ArticleList implements SubscriberInterface
 
         $view->addTemplateDir($this->pluginDirectory . '/Resources/views');
 
-        $view->extendsTemplate('backend/magedia_article_banner/app.js');
-        $view->extendsTemplate('backend/magedia_article_banner/view/main/grid.js');
+        $view->extendsTemplate('backend/magedia_property_banner/app.js');
+        $view->extendsTemplate('backend/magedia_property_banner/view/main/option_grid.js');
     }
 }
